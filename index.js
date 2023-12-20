@@ -9,7 +9,7 @@ const dotenv = require("dotenv")
 const connectDB = require('./config/db')
 
 
-//Dot ENV config
+// env config
 dotenv.config()
 
 //mongodb connection
@@ -20,12 +20,12 @@ app.use(cors())
 app.use(express.json())
 app.use(fileUpload());
 
-
-
+// local middleware
 app.use(authRoutes)
 app.use(jobRoutes)
 app.use(handleServerError)
 
+//main error handeling
 app.use((err,req, res, next) => {
   res.status(400).send('server error from front');
   console.log(err);
@@ -37,6 +37,7 @@ app.use((err,req, res, next) => {
   // next();
 })
 
-app.listen(8000, () => {
+//server starting
+app.listen(8080, () => {
   console.log("server started");
 })

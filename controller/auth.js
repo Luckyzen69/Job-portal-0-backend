@@ -7,18 +7,19 @@ var jwt = require('jsonwebtoken');
   const signup = async (req,res,next)=>{
     console.log('req.body',req.body);
     try{
+      
       let hashedPassword = await bcrypt.hash(req.body.password, 10 )
     console.log(hashedPassword);
       let user = await UserModel.create({
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword
-    });
-    
+      });
+
 
       res.send(user)
     }catch(err){
-      res.status(500).send({error:err.message})
+     next(err)
     } 
   }
           

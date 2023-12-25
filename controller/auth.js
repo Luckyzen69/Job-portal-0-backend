@@ -11,10 +11,11 @@ var jwt = require('jsonwebtoken');
       let hashedPassword = await bcrypt.hash(req.body.password, 10 )
     console.log(hashedPassword);
       let user = await UserModel.create({
-        name: req.body.name,
+        username: req.body.username,
         email: req.body.email,
-        password: hashedPassword
-      });
+        password: hashedPassword,
+        phone:req.body.phone
+      }); 
 
 
       res.send(user)

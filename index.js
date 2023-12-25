@@ -15,8 +15,15 @@ dotenv.config()
 //mongodb connection
 connectDB();
 
+// tackle cors  
+ const  corsOption ={
+  origin:"http:/localhost:5173",
+  methods: "GET, POST, PUT , DELETE,  PATCH , HEAD",  
+  Credentials: true,
+ }
+
 // global middleware
-app.use(cors())
+app.use(cors(corsOption))
 app.use(express.json())
 app.use(fileUpload());
 

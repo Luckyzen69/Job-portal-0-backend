@@ -3,9 +3,11 @@ const bcrypt = require('bcrypt');
 
 const Schema = mongoose.Schema;
 
+// Set the default maxTimeMS for findOne queries
+mongoose.set('maxTimeMS', 10000);
 
 const UserSchema = new Schema({
-  name:{
+  username:{
     require: true,
     type: String,
     minLength:"3",
@@ -16,12 +18,18 @@ const UserSchema = new Schema({
     validate:{
       validator:async function(requestValue){
         //custom logic
-      let user = await mongoose.models.User.findOne({email: requestValue})
-      if(user){
-        return false;
-      }
-      return true;
-      },
+        try{
+
+          let user = await mongoose.models.User.findOne({email: requestValue}).exec();
+          if(user){
+            return false;
+          }
+          return true;
+      }catch(error){
+        console.log(`error during email validation : ${error.message}`);
+        return false;  //validation failed incase of error
+      } 
+    },
       message:"email already used",
     }
   },
@@ -30,6 +38,10 @@ const UserSchema = new Schema({
     required: true,
     select: false,
   },
+  phone:{
+    type:Number,
+  },
+  
 });
 
 

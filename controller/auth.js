@@ -14,6 +14,7 @@ var jwt = require('jsonwebtoken');
         username: req.body.username,
         email: req.body.email,
         password: hashedPassword,
+        cpassword: hashedPassword,
         phone:req.body.phone
       }); 
 
@@ -38,6 +39,7 @@ var jwt = require('jsonwebtoken');
           let hashedPassword = user.password //password stored in db
           let matched=  await bcrypt.compare(req.body.password, hashedPassword);
           delete user.password
+          delete user.cpassword
            const SECRET_KEY = 'shhhhh';
            var token = jwt.sign( user ,SECRET_KEY);
           if(matched){  

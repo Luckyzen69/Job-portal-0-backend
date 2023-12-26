@@ -54,7 +54,7 @@ const fetchJob= async function (err, req, res, next) {
       data: jobs
     })
     console.log(req.query);
-    // res.send(product)
+    
   }
   catch (err) {
     next(err);
@@ -64,13 +64,13 @@ const fetchJob= async function (err, req, res, next) {
 
 
 
-
+            // creating a new job
 const createJob = async function (req, res, next) {
   console.log(path.resolve());
-  // req.files.image.mv()  
+  
 
   console.log('req.body', req.body);
-  // console.log('productc-files',req.files.image);  
+ 
 
   let imagePath = null
 
@@ -94,22 +94,16 @@ const createJob = async function (req, res, next) {
     next(err);
   }
   try {
-    let product = await JobModel.create(
+    let job = await JobModel.create(
       {
         ...req.body,
         createdBy: req.user._id,
         image: imagePath
 
       }
-      // SPREAD OPERATION
-      //     {
-      //     title: req.body.title,
-      //     price: req.body.price,
-      //     discription:req.body.discription,
-      //     creatdBy:req.user._id,
-      // }
+      
     )
-    res.send(Job)
+    res.send(job)
     console.log("Job created", req.user);
   }
   catch (err) {
@@ -121,8 +115,8 @@ const createJob = async function (req, res, next) {
        const updateJob =async (req,res)=>{
         console.log(req.params);
         try{
-          const product = await JobModel.findByIdAndUpdate(req.params.id,req.body,{new:true})
-          res.send(product)
+          const job = await JobModel.findByIdAndUpdate(req.params.id,req.body,{new:true})
+          res.send(job)
         }catch(err){
           next(err)
         }
@@ -131,7 +125,7 @@ const createJob = async function (req, res, next) {
        const deleteJob =async (req,res)=>{
         console.log(req.params);
         try{
-          const product = await JobModel.findByIdAnddelete(req.params.id)
+          const job = await JobModel.findByIdAnddelete(req.params.id)
           res.send(job)
         }catch(err){
           next(err)

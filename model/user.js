@@ -38,6 +38,11 @@ const UserSchema = new Schema({
     required: true,
     select: false,
   },
+  cpassword: {
+    type: String,
+    required: true,
+    select: false,
+  },
   phone:{
     type:Number,
   },

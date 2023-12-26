@@ -32,6 +32,20 @@ function checkAuthentication(req, res, next) {
 
     }
 }
+           function CheckPassword(req,res,next){
+            let password = req.body.password
+            let cpassword = req.body.cpassword
+           
+            if(password.length != 0 ){
+                    if(password == cpassword){
+                       console.log("password matched");
+                    }else{
+                        res.status(400).send("password don't match");
+                    }
+                    next();
+            }
+           }
 module.exports = {
-    checkAuthentication
+    checkAuthentication,
+    CheckPassword
 }

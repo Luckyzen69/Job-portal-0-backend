@@ -31,6 +31,14 @@ const JobSchema = new Schema({
       type: String,
       maxLength: 255
    },
+   location: {
+      type: String,
+      required: true,
+   },
+   company: {
+      type: String,
+      required: true,
+   },
    creatdAt: {
       type: Date,
    },

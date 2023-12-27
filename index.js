@@ -16,14 +16,15 @@ dotenv.config()
 connectDB();
 
 // tackle cors  
- const  corsOption ={
-  origin:"http:/localhost:5173",
-  methods: "GET, POST, PUT , DELETE,  PATCH , HEAD",  
-  Credentials: true,
- }
+//  const  corsOption ={
+//   origin:"http:/localhost:5173",
+//   methods: "GET, POST, PUT , DELETE,  PATCH , HEAD",  
+//   Credentials: true,
+//  }
 
 // global middleware
-app.use(cors(corsOption))
+// app.use(cors)
+app.use(cors({ origin: 'http://localhost:5173' })); 
 app.use(express.json())
 app.use(fileUpload());
 

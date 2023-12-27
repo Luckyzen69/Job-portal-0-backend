@@ -20,7 +20,7 @@ const UserSchema = new Schema({
         //custom logic
         try{
 
-          let user = await mongoose.models.User.findOne({email: requestValue}).exec();
+          let user = await mongoose.models.User.findOne({email: requestValue})    
           if(user){
             return false;
           }
@@ -45,6 +45,9 @@ const UserSchema = new Schema({
   },
   phone:{
     type:Number,
+  },
+  role:{
+    type:String,
   },
   
 });

@@ -13,7 +13,7 @@ var jwt = require('jsonwebtoken');
       let user = await UserModel.create({
         username: req.body.username,
         email: req.body.email,
-        password: hashedPassword
+        password: hashedPassword,
         cpassword: hashedPassword,
         phone:req.body.phone,
         role:req.body.role,

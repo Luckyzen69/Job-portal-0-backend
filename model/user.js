@@ -49,6 +49,9 @@ const UserSchema = new Schema({
   role:{
     type:String,
   },
+  gender:{
+    type:String,
+  },
   
 });
 

@@ -48,6 +48,7 @@ const UserSchema = new Schema({
   },
   role:{
     type:String,
+    required: true,
   },
   gender:{
     type:String,

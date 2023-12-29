@@ -29,30 +29,38 @@ var jwt = require('jsonwebtoken');
           
 
    // login
-  const login = async (req,res,next)=>{
-    console.log('req.body',req.body);
-    try{
-          // check if email exist in db or not 
-          let user = await UserModel.findOne({email: req.body.email}).select("+password")
-          console.log(user);
-
-         if(user){
-          user = user.toObject()
-          let hashedPassword = user.password //password stored in db
-          let matched=  await bcrypt.compare(req.body.password, hashedPassword);
-          delete user.password
-          delete user.cpassword
-           const SECRET_KEY = 'shhhhh';
-           var token = jwt.sign( user ,SECRET_KEY);
-          if(matched){  
-            return res.send({
+   const login = async (req,res,next)=>{
+     console.log('req.body',req.body);
+     
+     try{
+       // check if email exist in db or not 
+       let user = await UserModel.findOne({email: req.body.email}).select("+password")
+       console.log(user);
+       
+       if(user){
+         user = user.toObject()
+         let hashedPassword = user.password //password stored in db
+         let matched=  await bcrypt.compare(req.body.password, hashedPassword);
+         delete user.password
+         delete user.cpassword
+         const SECRET_KEY = 'shhhhh';
+         var token = jwt.sign( user ,SECRET_KEY);
+         if(matched){  
+           return res.send({
               user: user,
               "token":token,
             })
-        }
+          }
+          if (token) {
+          // Include the token in your request headers or wherever it's needed
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        } else {
+          // Handle the case where the token is not available
+          console.error('Token not found in localStorage');
 
           return res.status(401).send("invaid credentials")}
           next();
+        }
 
     }catch(err){
       next(err);

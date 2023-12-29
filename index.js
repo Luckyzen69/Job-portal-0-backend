@@ -24,7 +24,7 @@ connectDB();
 
 // global middleware
 // app.use(cors)
-app.use(cors({ origin: 'http://localhost:5173' })); 
+app.use(cors()); 
 app.use(express.json())
 app.use(fileUpload());
 
@@ -37,7 +37,7 @@ app.use(handleServerError)
 app.use((err,req, res, next) => {
   res.status(400).send('server error from front');
   console.log(err);
-  // next();
+  next();
 })
 app.use((err,req, res, next) => {
   res.status(500).send('server error from back');

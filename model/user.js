@@ -37,11 +37,15 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     select: false,
+    min:5,
+    max:18,
   },
   cpassword: {
     type: String,
     required: true,
     select: false,
+    min:5,
+    max:18,
   },
   phone:{
     type:Number,
@@ -49,9 +53,13 @@ const UserSchema = new Schema({
   role:{
     type:String,
     required: true,
+    enum:['JobSeeker','Jobrecuiter'],
+    default:'JobSeeker',
   },
   gender:{
     type:String,
+    enum: ['Male','Female'],
+    default:'Male'    
   },
   
 });

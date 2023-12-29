@@ -34,7 +34,7 @@ var jwt = require('jsonwebtoken');
      
      try{
        // check if email exist in db or not 
-       let user = await UserModel.findOne({email: req.body.email}).select("+password")
+      let user = await UserModel.findOne({email: req.body.email}).select("+password")
        console.log(user);
        
        if(user){
@@ -42,7 +42,6 @@ var jwt = require('jsonwebtoken');
          let hashedPassword = user.password //password stored in db
          let matched=  await bcrypt.compare(req.body.password, hashedPassword);
          delete user.password
-         delete user.cpassword
          const SECRET_KEY = 'shhhhh';
          var token = jwt.sign( user ,SECRET_KEY);
          if(matched){  

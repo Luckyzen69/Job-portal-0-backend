@@ -56,10 +56,17 @@ const UserSchema = new Schema({
     enum:['JobSeeker','Jobrecuiter'],
     default:'JobSeeker',
   },
-  gender:{
+  experience:{
     type:String,
-    enum: ['Male','Female'],
-    default:'Male'    
+    required: true,
+   
+  },
+  company:{
+    type:String,
+    required: true,
+  },
+  gender:{
+    type:String,  
   },
   
 });

@@ -17,6 +17,8 @@ var jwt = require('jsonwebtoken');
         cpassword: hashedPassword,
         phone:req.body.phone,
         role:req.body.role,
+        experience:req.body.experience,
+        company:req.body.company,
         gender:req.body.gender
       }); 
 

@@ -53,8 +53,7 @@ const UserSchema = new Schema({
   role:{
     type:String,
     required: true,
-    enum:['JobSeeker','Jobrecuiter'],
-    default:'JobSeeker',
+
   },
   experience:{
     type:String,
@@ -67,6 +66,8 @@ const UserSchema = new Schema({
   },
   gender:{
     type:String,  
+    required: true
+    
   },
   
 });

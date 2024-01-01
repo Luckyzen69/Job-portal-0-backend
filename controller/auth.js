@@ -16,7 +16,7 @@ var jwt = require('jsonwebtoken');
         password: hashedPassword,
         cpassword: hashedPassword,
         phone:req.body.phone,
-        role:req.body.role,
+        role:req.body.selectedRole,
         experience:req.body.experience,
         company:req.body.company,
         gender:req.body.gender
@@ -58,7 +58,6 @@ var jwt = require('jsonwebtoken');
         } else {
           // Handle the case where the token is not available
           console.error('Token not found in localStorage');
-
           return res.status(401).send("invaid credentials")}
           next();
         }

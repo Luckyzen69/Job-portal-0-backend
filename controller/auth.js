@@ -21,8 +21,15 @@ var jwt = require('jsonwebtoken');
         company:req.body.company,
         gender:req.body.gender
       }); 
+      //removing sensative informations
+      const sanitizedUser = { ...user._doc };
+      delete sanitizedUser.password;
+      delete sanitizedUser.cpassword;
 
-
+      //creating jwt token
+      // const SECRET_KEY = 'shhhhh';
+      // var token = jwt.sign( user ,SECRET_KEY);
+      // res.status(201).json({user,token})
       res.send(user)
     }catch(err){
      next(err)
@@ -48,17 +55,11 @@ var jwt = require('jsonwebtoken');
          var token = jwt.sign( user ,SECRET_KEY);
          if(matched){  
            return res.send({
-              user: user,
+              user: user.toObject,
               "token":token,
             })
           }
-          if (token) {
-          // Include the token in your request headers or wherever it's needed
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        } else {
-          // Handle the case where the token is not available
-          console.error('Token not found in localStorage');
-          return res.status(401).send("invaid credentials")}
+          
           next();
         }
 

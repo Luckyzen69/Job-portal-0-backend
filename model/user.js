@@ -38,14 +38,14 @@ const UserSchema = new Schema({
     required: true,
     select: false,
     minlength:5,
-    maxlength:18,
+    
   },
   cpassword: {
     type: String,
     required: true,
     select: false,
     minlength:5,
-    maxlength:18,
+    
   },
   phone:{
     type:Number,
@@ -57,12 +57,12 @@ const UserSchema = new Schema({
   },
   experience:{
     type:String,
-    required: true,
+    
    
   },
   company:{
     type:String,
-    required: true,
+  
   },
   gender:{
     type:String,  

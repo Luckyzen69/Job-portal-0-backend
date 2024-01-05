@@ -5,7 +5,9 @@ var jwt = require('jsonwebtoken');
               // sign up
 
   const signup = async (req,res,next)=>{
+   
     console.log('req.body',req.body);
+    console.log(result);
     try{
       
       let hashedPassword = await bcrypt.hash(req.body.password, 10 )
@@ -26,10 +28,7 @@ var jwt = require('jsonwebtoken');
       delete sanitizedUser.password;
       delete sanitizedUser.cpassword;
 
-      //creating jwt token
-      // const SECRET_KEY = 'shhhhh';
-      // var token = jwt.sign( user ,SECRET_KEY);
-      // res.status(201).json({user,token})
+     
       res.send(user)
     }catch(err){
      next(err)
@@ -42,9 +41,6 @@ var jwt = require('jsonwebtoken');
      console.log('req.body',req.body);
      
      try{
-       // check if email exist in db or not 
-      let user = await UserModel.findOne({email: req.body.email}).select("+password")
-       console.log(user);
        
        if(user){
          user = user.toObject()

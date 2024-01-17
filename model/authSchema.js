@@ -1,11 +1,11 @@
 const Joi = require('joi')
 
   const authSchema  = Joi.object({
-    username: Joi.string()
-    .alphanum()
-    .min(3)
-    .max(30)
-    .required(),
+    // username: Joi.string()
+    // .alphanum()
+    // .min(3)
+    // .max(30)
+    // .required(),
     
     email: Joi.string()
     .email().lowercase().required(),
@@ -15,6 +15,4 @@ const Joi = require('joi')
     .required(),
 
   })
-  module.exports = {
-    authSchema
-  }
+  module.exports = authSchema

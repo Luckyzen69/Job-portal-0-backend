@@ -6,7 +6,7 @@ const {CheckPassword} = require("../middleware/auth")
 const validationMiddleware = require('../middleware/validateMiddleware')
 
 
- router.post('/api/signup',CheckPassword,validationMiddleware ,signup)
- router.post('/api/login',login)
+ router.post('/api/signup',CheckPassword ,signup)
+ router.post('/api/login',validationMiddleware,login)
 
   module.exports = router;

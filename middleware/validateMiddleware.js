@@ -1,8 +1,13 @@
-    const authSchema = require("../model/authSchema")
+// validationMiddleware.js
+const authSchema = require('../model/authSchema');
 
-    const  validationMiddleware= async(req,res,next) =>{
-        const result = await authSchema(req.body)
-        console.log(result)
-        next(); 
-    }
-    module.exports= validationMiddleware
+const validationMiddleware = async (req, res, next) => {
+  try {
+    await authSchema.validateAsync(req.body);
+    next();
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+};
+
+module.exports = validationMiddleware;

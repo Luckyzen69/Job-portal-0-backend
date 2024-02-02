@@ -1,7 +1,7 @@
 const Joi = require('joi')
 
   const authSchema  = Joi.object({
-    // username: Joi.string()
+    username: Joi.string(),
     // .alphanum()
     // .min(3)
     // .max(30)

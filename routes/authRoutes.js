@@ -1,31 +1,49 @@
 // authRoutes.js
 const express = require('express');
 const router = express.Router();
+const UserModel = require("../model/user");
+const jwt = require('jsonwebtoken');
 
-// Middleware to check if the user is authenticated
-const isAuthenticated = (req, res, next) => {
-  // Check your authentication logic here
-  // For example, verify the authentication token
-  // If authenticated, continue to the next middleware, otherwise, send a 401 Unauthorized response
-  // Note: This is a placeholder, replace it with your actual authentication logic
-  const isAuthenticated = true; // Replace with your actual logic
-  if (isAuthenticated) {
-    next();
-  } else {
-    res.status(401).json({ error: 'Unauthorized' });
+
+const User = await UserModel('User', {
+  username: String,
+  email: String,
+});
+
+
+router.get('/api/user/:id',async (req, res) => {
+  try {
+
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const decoded = jwt.verify(token, 'shhhhh'); 
+
+
+    const userId = req.params._id;
+
+    // Perform validation on userId (e.g., validate format, ensure access permissions)
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Optionally, filter or transform data before sending
+    const userData = {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+    };
+
+    res.json(userData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-};
-
-// Route to get user information
-router.get('/api/user', isAuthenticated, (req, res) => {
-  // Assuming you have the user information stored in req.user after authentication
-
-  const user = {
-    id: req.user.id ,
-    username: req.user.username ,  
-    email: req.user.email,
-  };
-  res.json(user);
 });
 
 module.exports = router;

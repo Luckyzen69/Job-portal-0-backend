@@ -3,12 +3,17 @@ const express = require('express');
 const router = express.Router();
 const UserModel = require("../model/user");
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+
+const { Schema, model } = mongoose;
 
 
-const User = await UserModel('User', {
+const UserSchema = await UserModel('User', {
   username: String,
   email: String,
 });
+     
+const User = model('User', UserSchema);
 
 
 router.get('/api/user/:id',async (req, res) => {
@@ -22,7 +27,7 @@ router.get('/api/user/:id',async (req, res) => {
     const decoded = jwt.verify(token, 'shhhhh'); 
 
 
-    const userId = req.params._id;
+    const userId = req.params.id;
 
     // Perform validation on userId (e.g., validate format, ensure access permissions)
 
@@ -40,6 +45,7 @@ router.get('/api/user/:id',async (req, res) => {
     };
 
     res.json(userData);
+    console.log(userData);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

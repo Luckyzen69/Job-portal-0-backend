@@ -50,7 +50,8 @@ const login = async (req, res, next) => {
         delete sanitizedUser.cpassword;
         const SECRET_KEY = 'shhhhh';
         const token = jwt.sign(sanitizedUser, SECRET_KEY);
-        res.send({ user: sanitizedUser, token });
+       
+        return res.json({status: true,message:"login sucessfully"})
       } else {
         res.status(401).send({ error: "Invalid password" });
       }

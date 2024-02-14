@@ -2,8 +2,11 @@ const UserModel = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+
 const signup = async (req, res, next) => {
   console.log("req.body", req.body);
+  console.log("req.body");
+
   try {
     let hashedPassword = await bcrypt.hash(req.body.password, 12);
     console.log('Hashed password:', hashedPassword);
@@ -19,11 +22,14 @@ const signup = async (req, res, next) => {
       company: req.body.company,
       gender: req.body.gender,
     });
+
     const sanitizedUser = { ...user._doc };
     delete sanitizedUser.password;
     delete sanitizedUser.cpassword;
+
     res.send(sanitizedUser);
   } catch (err) {
+    console.error(err);
     next(err);
   }
 };
@@ -38,31 +44,37 @@ const login = async (req, res, next) => {
   }
   
   try {
-    const user = await UserModel.findOne({ email }).select('+password');;  
+    const user = await UserModel.findOne({ email }).select('+password');  
+    
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
     console.log('Hashed password:', req.body.password);
     console.log('not password:', user.password);
+    
 
-    if (user) {
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (isPasswordValid) {
-        const sanitizedUser = { ...user._doc };
-        delete sanitizedUser.password;
-        delete sanitizedUser.cpassword;
-        const SECRET_KEY = 'shhhhh';
-        const token = jwt.sign(sanitizedUser, SECRET_KEY);
-       
-        return res.json({status: true,message:"login sucessfully"})
-      } else {
-        res.status(401).send({ error: "Invalid password" });
-      }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (isPasswordValid) {
+      const sanitizedUser = { ...user._doc };
+      delete sanitizedUser.password;
+      delete sanitizedUser.cpassword;
+      const SECRET_KEY = process.env.SECRET_KEY || 'shhhhh';
+      const token = jwt.sign(sanitizedUser, SECRET_KEY,{
+        expiresIn : 4759831490000
+      });
+          console.log(token);
+
+      return res.json({ status: true, message: "login successfully", token });
     } else {
-      res.status(404).send({ error: "User not found" });
+      res.status(401).send({ error: "Invalid password" });
     }
   } catch (err) {
+    console.error(err);
     next(err);
   }
 };
-
 module.exports = {
   login,
   signup,

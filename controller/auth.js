@@ -65,6 +65,8 @@ const login = async (req, res, next) => {
         expiresIn : 4759831490000
       });
           console.log(token);
+          localStorage.setItem('token', token);
+          
 
       return res.json({ status: true, message: "login successfully", token });
     } else {

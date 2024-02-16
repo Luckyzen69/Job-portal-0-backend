@@ -7,7 +7,6 @@ const handleServerError = require("./middleware/handleServerError")
 const fileUpload = require("express-fileupload")
 const dotenv = require("dotenv")
 const connectDB = require('./config/db')
-// const cookieParser = require('cookie-parser')
 
 // env config
 dotenv.config()
@@ -15,12 +14,6 @@ dotenv.config()
 //mongodb connection
 connectDB();
 
-// tackle cors  
-//  const  corsOption ={
-//   origin:"http:/localhost:5173",
-//   methods: "GET, POST, PUT , DELETE,  PATCH , HEAD",  
-//   Credentials: true,
-//  }
 
 // global middleware
 app.use(cors()); 

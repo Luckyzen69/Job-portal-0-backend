@@ -26,12 +26,5 @@ const verifyToken = require("../middleware/verifyToken")
       return res.status(500).send({msg:"Internal Server Error"})
   }
  })
-//     console.log(token);
-//     res.json({ token });
-//   } else {
-//     res.status(401).json({ error: 'Authorization header missing' });
-//   }}catch(error){
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
+
   module.exports = router;

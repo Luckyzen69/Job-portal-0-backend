@@ -9,7 +9,7 @@ const verifyToken = require("../middleware/verifyToken")
 
  router.post('/api/signup',CheckPassword ,signup)
  router.post('/api/login',validationMiddleware,login)
- router.get('/api/top',verifyToken, (req, res) => {
+ router.get('/api/top', (req, res) => {
   // Check if headers object exists
   const headers = req.headers;
   const userAgentHeader = req.headers['user-agent'];

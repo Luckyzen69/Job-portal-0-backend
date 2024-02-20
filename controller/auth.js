@@ -64,9 +64,7 @@ const login = async (req, res, next) => {
       const token = jwt.sign(sanitizedUser, SECRET_KEY,{
         expiresIn : 4759831490000
       });
-          console.log(token);
-          localStorage.setItem('token', token);
-          
+          console.log(token);          
 
       return res.json({ status: true, message: "login successfully", token });
     } else {

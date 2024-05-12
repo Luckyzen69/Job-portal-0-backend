@@ -2,7 +2,7 @@ const UserModel = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-
+  
 const signup = async (req, res, next) => {
   console.log("req.body", req.body);
   console.log("req.body");
@@ -65,7 +65,6 @@ const login = async (req, res, next) => {
         expiresIn : 4759831490000
       });
           console.log(token);          
-
       return res.json({ status: true, message: "login successfully", token });
     } else {
       res.status(401).send({ error: "Invalid password" });
